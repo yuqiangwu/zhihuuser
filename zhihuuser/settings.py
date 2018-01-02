@@ -27,7 +27,7 @@ ROBOTSTXT_OBEY = False
 # Configure a delay for requests for the same website (default: 0)
 # See http://scrapy.readthedocs.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-#DOWNLOAD_DELAY = 3
+DOWNLOAD_DELAY = 3
 # The download delay setting will honor only one of:
 #CONCURRENT_REQUESTS_PER_DOMAIN = 16
 #CONCURRENT_REQUESTS_PER_IP = 16
@@ -68,6 +68,7 @@ DEFAULT_REQUEST_HEADERS = {
 # See http://scrapy.readthedocs.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
    'zhihuuser.pipelines.MongoPipeline': 298,
+    'scrapy_redis.pipelines.RedisPipeline': 300
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
@@ -94,3 +95,11 @@ ITEM_PIPELINES = {
 #mongodb相关参数
 MONGO_URI = '192.168.8.71'
 MONGO_DATABASE = 'zhihu'
+
+SCHEDULER = "scrapy_redis.scheduler.Scheduler"
+DUPEFILTER_CLASS = "scrapy_redis.dupefilter.RFPDupeFilter"
+#需要密码登录
+#REDIS_URL = 'redis://user:pass@192.168.8.71:9001'
+
+#不需要密码
+REDIS_URL = 'redis://192.168.8.71:6379'
